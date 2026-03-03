@@ -1,103 +1,164 @@
-@charset 'UTF-8';
-
-/* RESET E FUNDO */
-* { margin: 0; padding: 0; box-sizing: border-box; }
+/* Reset básico e tipografia */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif; /* Aplica a fonte Poppins */
+}
 
 body {
-    background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    background: #0f0f1b; /* Fundo escuro profundo */
+    overflow: hidden; /* Esconde qualquer elemento que saia da tela */
+    position: relative; /* Necessário para posicionar os elementos pseudo */
 }
 
-/* SISTEMA DE ONDAS (SEA) */
-.sea {
+/* Animação do fundo com elementos brilhantes */
+body::before, body::after {
+    content: '';
     position: absolute;
-    top: 0;
-    left: 0;
+    width: 450px; /* Tamanho maior para as formas */
+    height: 450px;
+    border-radius: 50%;
+    filter: blur(120px); /* Mais desfoque */
+    animation: float 12s infinite alternate ease-in-out; /* Animação mais longa e suave */
+    z-index: 0; /* Garante que fique atrás do cartão */
+}
+
+body::before {
+    background: rgba(0, 255, 170, 0.45); /* Verde Neon um pouco mais intenso */
+    top: -120px; /* Posições ajustadas */
+    left: -120px;
+}
+
+body::after {
+    background: rgba(0, 153, 255, 0.45); /* Azul Cyber um pouco mais intenso */
+    bottom: -120px;
+    right: -120px;
+    animation-delay: -6s; /* Inicia a animação da segunda forma em um ponto diferente */
+}
+
+@keyframes float {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    50% { transform: translate(150px, 100px) rotate(180deg); } /* Move e rotaciona */
+    100% { transform: translate(-50px, -120px) rotate(360deg); }
+}
+
+/* Estilo do cartão principal (Glassmorphism) */
+.glass-card {
+    background: rgba(255, 255, 255, 0.08); /* Fundo um pouco mais opaco */
+    backdrop-filter: blur(20px); /* Mais desfoque para o efeito vidro */
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.15); /* Borda um pouco mais visível */
+    border-radius: 28px; /* Cantos mais arredondados */
+    padding: 40px;
+    width: 100%;
+    max-width: 420px; /* Ligeiramente mais largo */
+    text-align: center;
+    color: #fff;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6); /* Sombra mais pronunciada */
+    z-index: 1; /* Garante que fique acima do fundo */
+    transition: all 0.3s ease; /* Transição suave para o hover */
+    transform-style: preserve-3d; /* Essencial para o efeito 3D do Vanilla Tilt */
+}
+
+.glass-card:hover {
+    transform: translateY(-8px); /* Levanta um pouco mais no hover */
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7);
+}
+
+/* Foto de Perfil */
+.profile-pic {
+    width: 140px; /* Um pouco maior */
+    height: 140px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #00ffaa, #0099ff); /* Gradiente vibrante */
+    margin: 0 auto 25px; /* Mais espaço abaixo */
+    padding: 5px; /* Borda gradiente mais grossa */
+    box-shadow: 0 0 25px rgba(0, 255, 170, 0.4); /* Brilho mais intenso */
+    display: flex; /* Para centralizar a imagem interna */
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-pic img {
     width: 100%;
     height: 100%;
-    display: flex;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #1a1a2e; /* Cor de fundo para a imagem */
+    border: 3px solid #0f0f1b; /* Borda interna para separar do gradiente */
+}
+
+h1 {
+    font-size: 1.8rem; /* Título maior */
+    font-weight: 700;
+    letter-spacing: 1.5px; /* Mais espaçamento entre letras */
+    margin-bottom: 8px;
+    text-shadow: 0 0 10px rgba(0, 255, 170, 0.2); /* Sombra de texto sutil */
+}
+
+p {
+    font-size: 1rem; /* Descrição um pouco maior */
+    color: #c0c0d0; /* Cor mais clara para o texto */
+    margin-bottom: 35px;
+    font-weight: 300;
+}
+
+/* Botões Avançados */
+.btn {
+    display: flex; /* Usar flexbox para alinhar ícone e texto */
     justify-content: center;
     align-items: center;
-    filter: drop-shadow(0 -5px 8px #51ff00) blur(3px) contrast(5);
-    z-index: 1;
-    pointer-events: none;
-}
-
-.wave_graphic {
-    width: 1vw;
-    min-width: 10px;
-    height: 40px;
-    background: linear-gradient(180deg, #ffffff 0%, #51ff00 100%);
-}
-
-.wave_fade { animation: fade 1400ms ease-in-out infinite alternate; }
-.wave_skew { animation: skew 2000ms ease-in-out infinite alternate; }
-.wave_translate { animation: translate 2000ms ease-in-out infinite alternate; }
-
-@keyframes fade { 0%, 5% { opacity: 0.1; } 100% { opacity: 0.8; } }
-@keyframes skew { 0% { transform: skewY(-17.5deg); } 100% { transform: skewY(17.5deg); } }
-@keyframes translate { 0% { transform: translateY(130px); } 100% { transform: translateY(-130px); } }
-
-/* CARD VAZIO (ESTRUTURA) */
-.card {
-    background-color: #ffffff;
-    width: 350px;
-    padding: 40px 25px;
-    border-radius: 20px;
-    border: 4px solid #000;
-    box-shadow: 12px 12px 0px #51ff009b;
-    text-align: center;
-    z-index: 10;
-    position: relative;
-}
-
-.profile-placeholder {
-    width: 110px;
-    height: 110px;
-    border-radius: 50%;
-    border: 3px solid #000;
-    margin: 0 auto 15px;
-    background-color: #eee;
-}
-
-.title-placeholder {
-    font-family: 'Anton', sans-serif;
-    font-size: 28px;
-    text-transform: uppercase;
-    margin-bottom: 5px;
-    color: #000;
-}
-
-.text-placeholder {
-    font-size: 14px;
-    color: #555;
-    margin-bottom: 25px;
-    font-weight: bold;
-}
-
-/* BOTÕES VAZIOS */
-.link-placeholder {
-    display: block;
-    background: #fff;
-    color: #000;
+    gap: 10px; /* Espaçamento entre ícone e texto */
+    width: 100%;
+    padding: 16px; /* Mais padding */
+    margin-bottom: 18px; /* Mais espaço entre botões */
     text-decoration: none;
-    font-weight: bold;
-    padding: 14px;
-    margin-bottom: 15px;
-    border-radius: 12px;
-    border: 2px solid #000;
-    box-shadow: 4px 4px 0px #000;
-    transition: 0.2s;
+    color: #e0e0e0; /* Cor do texto do botão */
+    background: rgba(255, 255, 255, 0.07); /* Fundo do botão um pouco mais visível */
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 14px; /* Cantos mais arredondados */
+    font-weight: 500;
+    font-size: 1.1rem; /* Texto do botão maior */
+    letter-spacing: 1.2px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden; /* Esconde o pseudo-elemento ::before */
 }
 
-.link-placeholder:hover {
-    transform: translate(-3px, -3px);
-    box-shadow: 7px 7px 0px #51ff00c3;
-    background-color: #f0f7ff;
+.btn i {
+    font-size: 1.3em; /* Tamanho do ícone relativo ao texto */
+}
+
+/* Efeito de Hover Brilhante nos botões */
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent); /* Brilho mais forte */
+    transition: left 0.6s ease; /* Transição mais lenta para o brilho */
+}
+
+.btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(0, 255, 170, 0.7); /* Borda mais visível ao hover */
+    box-shadow: 0 0 20px rgba(0, 255, 170, 0.35); /* Sombra mais intensa */
+    transform: scale(1.03); /* Leve zoom no botão */
+    color: #00ffaa; /* Cor do texto muda para verde neon */
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+/* Ajustes para a última margem do botão */
+.btn:last-child {
+    margin-bottom: 0;
 }
