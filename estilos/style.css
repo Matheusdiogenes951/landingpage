@@ -167,6 +167,13 @@ p {
 @media (max-width: 768px) {
     body {
         padding: 20px;
+        overflow: hidden;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    body::-webkit-scrollbar {
+        display: none;
     }
 
     body::before, body::after {
