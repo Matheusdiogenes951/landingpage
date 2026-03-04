@@ -162,3 +162,60 @@ p {
 .btn:last-child {
     margin-bottom: 0;
 }
+
+/* Media Query para Celular */
+@media (max-width: 768px) {
+    body {
+        padding: 20px;
+    }
+
+    body::before, body::after {
+        width: 300px;
+        height: 300px;
+        filter: blur(80px);
+    }
+
+    body::before {
+        top: -100px;
+        left: -100px;
+    }
+
+    body::after {
+        bottom: -100px;
+        right: -100px;
+    }
+
+    .glass-card {
+        padding: 30px 20px;
+        max-width: 100%;
+        border-radius: 20px;
+    }
+
+    .profile-pic {
+        width: 110px;
+        height: 110px;
+        margin-bottom: 20px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+        letter-spacing: 1px;
+        margin-bottom: 6px;
+    }
+
+    p {
+        font-size: 0.95rem;
+        margin-bottom: 25px;
+    }
+
+    .btn {
+        padding: 14px;
+        margin-bottom: 15px;
+        font-size: 1rem;
+        letter-spacing: 1px;
+    }
+
+    .btn i {
+        font-size: 1.1em;
+    }
+}
